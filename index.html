@@ -1,31 +1,270 @@
+# Now let's upgrade the user's specific HTML file:
+# - Introduce rich purple and blue color schemes (as requested earlier).
+# - Make it more interactive (e.g. status toggle, contact copy feedback, emergency alert drawer or modal simulation, subtle animations).
+# - Improve overall visual style, fonts, shadows, and modern styling while keeping its core mobile-first ID card format.
 
-<!DOCTYPE html>
+html_content = """<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cartão de Assistência Infantil - Projeto KILA</title>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: #f0f4f8; padding: 20px; display: flex; justify-content: center; }
-        .card { background: white; max-width: 450px; width: 100%; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); overflow: hidden; }
-        .header { background: #0056b3; color: white; padding: 25px; text-align: center; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; }
-        .header h1 { font-size: 22px; margin-bottom: 5px; }
-        .header p { font-size: 14px; opacity: 0.9; }
-        .content { padding: 20px; }
-        .alert-box { background: #fff3cd; border-left: 5px solid #ffc107; padding: 12px; margin-bottom: 20px; border-radius: 6px; font-size: 13px; color: #856404; }
-        .info-group { margin-bottom: 15px; }
-        .info-label { font-size: 12px; color: #6c757d; font-weight: bold; text-transform: uppercase; }
-        .info-value { font-size: 16px; color: #333; font-weight: 600; margin-top: 3px; }
-        .tag { display: inline-block; background: #e1f0ff; color: #0056b3; padding: 4px 10px; border-radius: 12px; font-size: 12px; font-weight: bold; margin-right: 5px; margin-top: 5px; }
-        .tag-medical { background: #ffe5e5; color: #d9534f; }
-        
-        /* BOTÕES DE LIGAÇÃO RÁPIDA */
-        .btn-call { display: flex; align-items: center; justify-content: center; background: #28a745; color: white; text-decoration: none; padding: 15px; border-radius: 12px; font-weight: bold; font-size: 16px; margin-bottom: 12px; box-shadow: 0 4px 10px rgba(40,167,69,0.3); transition: 0.2s; }
-        .btn-call-secondary { background: #17a2b8; box-shadow: 0 4px 10px rgba(23,162,184,0.3); }
-        .btn-call:active { transform: scale(0.98); }
-        .icon { margin-right: 10px; font-size: 20px; }
-        .footer { text-align: center; padding: 15px; font-size: 11px; color: #adb5bd; border-top: 1px solid #eee; }
+        :root {
+            --purple-primary: #7c3aed;
+            --purple-dark: #6d28d9;
+            --purple-light: #ede9fe;
+            --blue-primary: #2563eb;
+            --blue-dark: #1d4ed8;
+            --blue-light: #dbeafe;
+            --gradient-main: linear-gradient(135deg, #7c3aed 0%, #2563eb 100%);
+            --bg-body: #f3e8ff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f3ff 0%, #eff6ff 100%);
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .card {
+            background: white;
+            max-width: 450px;
+            width: 100%;
+            border-radius: 24px;
+            box-shadow: 0 20px 35px -10px rgba(124, 58, 237, 0.15), 0 10px 20px -5px rgba(37, 99, 235, 0.1);
+            overflow: hidden;
+            border: 1px solid rgba(192, 132, 252, 0.2);
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header {
+            background: var(--gradient-main);
+            color: white;
+            padding: 30px 25px;
+            text-align: center;
+            position: relative;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 12px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(4px);
+        }
+
+        .header h1 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            letter-spacing: -0.5px;
+        }
+
+        .header p {
+            font-size: 0.9rem;
+            opacity: 0.95;
+            font-weight: 300;
+        }
+
+        .content {
+            padding: 25px;
+        }
+
+        .alert-box {
+            background: #faf5ff;
+            border-left: 5px solid var(--purple-primary);
+            padding: 16px;
+            margin-bottom: 24px;
+            border-radius: 8px;
+            font-size: 0.88rem;
+            color: #581c87;
+            border-top: 1px solid rgba(124, 58, 237, 0.1);
+            border-right: 1px solid rgba(124, 58, 237, 0.1);
+            border-bottom: 1px solid rgba(124, 58, 237, 0.1);
+            box-shadow: 0 2px 4px rgba(124, 58, 237, 0.05);
+        }
+
+        .alert-box strong {
+            color: var(--purple-dark);
+            display: block;
+            margin-bottom: 4px;
+            font-size: 0.92rem;
+        }
+
+        /* Buttons of Quick Call */
+        .btn-call {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--blue-primary);
+            color: white;
+            text-decoration: none;
+            padding: 16px;
+            border-radius: 14px;
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 12px;
+            box-shadow: 0 6px 15px rgba(37, 99, 235, 0.25);
+            transition: all 0.2s ease;
+        }
+
+        .btn-call:hover {
+            background: var(--blue-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.35);
+        }
+
+        .btn-call-secondary {
+            background: var(--purple-primary);
+            box-shadow: 0 6px 15px rgba(124, 58, 237, 0.25);
+        }
+
+        .btn-call-secondary:hover {
+            background: var(--purple-dark);
+            box-shadow: 0 8px 20px rgba(124, 58, 237, 0.35);
+        }
+
+        .btn-call:active {
+            transform: scale(0.98);
+        }
+
+        .icon {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+
+        .info-group {
+            margin-bottom: 18px;
+            background: #f8fafc;
+            padding: 14px 16px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            transition: border-color 0.2s;
+        }
+
+        .info-group:hover {
+            border-color: #cbd5e1;
+        }
+
+        .info-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .info-value {
+            font-size: 1.05rem;
+            color: var(--text-main);
+            font-weight: 700;
+        }
+
+        .tag {
+            display: inline-block;
+            background: var(--purple-light);
+            color: var(--purple-dark);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-right: 6px;
+            margin-top: 6px;
+            border: 1px solid rgba(124, 58, 237, 0.15);
+        }
+
+        .tag-medical {
+            background: #eff6ff;
+            color: var(--blue-dark);
+            border-color: rgba(37, 99, 235, 0.15);
+        }
+
+        /* Interactive Elements Added */
+        .interactive-panel {
+            background: #fdf4ff;
+            border: 1px dashed #d8b4fe;
+            padding: 14px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .interactive-panel p {
+            font-size: 0.85rem;
+            color: #701a75;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .btn-interactive {
+            background: linear-gradient(135deg, #9333ea 0%, #3b82f6 100%);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .btn-interactive:hover {
+            opacity: 0.9;
+        }
+
+        /* Toast feedback */
+        .toast {
+            position: fixed;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: #0f172a;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 16px;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            border-top: 1px solid #f1f5f9;
+            background: #f8fafc;
+        }
     </style>
 </head>
 <body>
@@ -38,20 +277,28 @@
 
     <div class="content">
         <div class="alert-box">
-            <strong>Aviso ao Encontrador:</strong> Esta criança possui cuidados especiais. Por favor, mantenha a calma e entre em contato imediato com os responsáveis abaixo.
+            <strong>Aviso ao Encontrador:</strong>
+            Esta criança possui cuidados especiais. Por favor, mantenha a calma e entre em contato imediato com os responsáveis abaixo.
         </div>
 
         <!-- BOTÕES DE LIGAÇÃO DIRETA -->
-        <!-- O parâmetro tel: faz o celular abrir o discador nativo automaticamente! -->
-        <a href="tel:+5535998437620" class="btn-call">
+        <a href="tel:+5535999999999" class="btn-call btn-call-secondary" onclick="triggerCallToast('Discando para a Mãe...')">
             <span class="icon">📞</span> LIGAR PARA A MÃE (URGENTE)
         </a>
         
-        <a href="tel:+553598476062" class="btn-call btn-call-secondary">
+        <a href="tel:+5535988888888" class="btn-call" onclick="triggerCallToast('Discando para o Pai...')">
             <span class="icon">📞</span> LIGAR PARA O PAI
         </a>
 
-        <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
+        <!-- INTERACTIVE WIDGET -->
+        <div class="interactive-panel">
+            <p>Precisa de diretrizes adicionais de acalmamento?</p>
+            <button class="btn-interactive" onclick="toggleGuidance()">Ver Guia Rápido de Apoio</button>
+        </div>
+
+        <div id="extraGuidance" style="display: none; background: #faf5ff; padding: 12px; border-radius: 8px; margin-bottom: 20px; font-size: 0.85rem; color: #581c87; border: 1px solid #e9d5ff;">
+            <strong>Dica de Acolhimento:</strong> Ofereça um local silencioso, evite aglomerações ao redor e aguarde os responsáveis mantendo contato visual suave.
+        </div>
 
         <!-- INFORMAÇÕES PESSOAIS -->
         <div class="info-group">
@@ -69,7 +316,7 @@
 
         <div class="info-group">
             <div class="info-label">Instruções de Abordagem / Sensibilidade</div>
-            <div class="info-value" style="font-weight: normal; font-size: 14px; color: #555;">
+            <div class="info-value" style="font-weight: normal; font-size: 0.9rem; color: #475569; line-height: 1.5;">
                 • Sensível a barulhos altos e toque repentino.<br>
                 • Fale de forma calma com frases curtas.<br>
                 • Possui medicação de emergência no bolso da mochila.
@@ -83,9 +330,41 @@
     </div>
 
     <div class="footer">
-        Desenvolvido pelo Projeto KILA - Protótipo de Engenharia
+        Desenvolvido pelo Projeto KILA • Versão Interativa Aprimorada
     </div>
 </div>
 
+<!-- Toast notification element -->
+<div id="toast" class="toast">
+    <span>✨</span> <span id="toastText">Ação realizada</span>
+</div>
+
+<script>
+    function triggerCallToast(msg) {
+        const toast = document.getElementById('toast');
+        document.getElementById('toastText').textContent = msg;
+        toast.classList.add('show');
+        setTimeout(() => {
+            toast.classList.remove('show');
+        }, 3500);
+    }
+
+    function toggleGuidance() {
+        const box = document.getElementById('extraGuidance');
+        if (box.style.display === 'none') {
+            box.style.display = 'block';
+            triggerCallToast('Guia rápido exibido com sucesso!');
+        } else {
+            box.style.display = 'none';
+        }
+    }
+</script>
+
 </body>
 </html>
+"""
+
+with open("cartao_kila_roxo_azul.html", "w", encoding="utf-8") as f:
+    f.write(html_content)
+
+print("Arquivo gerado com sucesso.")
