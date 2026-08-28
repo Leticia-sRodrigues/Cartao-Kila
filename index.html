@@ -1,0 +1,91 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cartão de Assistência Infantil - Projeto KILA</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #f0f4f8; padding: 20px; display: flex; justify-content: center; }
+        .card { background: white; max-width: 450px; width: 100%; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); overflow: hidden; }
+        .header { background: #0056b3; color: white; padding: 25px; text-align: center; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; }
+        .header h1 { font-size: 22px; margin-bottom: 5px; }
+        .header p { font-size: 14px; opacity: 0.9; }
+        .content { padding: 20px; }
+        .alert-box { background: #fff3cd; border-left: 5px solid #ffc107; padding: 12px; margin-bottom: 20px; border-radius: 6px; font-size: 13px; color: #856404; }
+        .info-group { margin-bottom: 15px; }
+        .info-label { font-size: 12px; color: #6c757d; font-weight: bold; text-transform: uppercase; }
+        .info-value { font-size: 16px; color: #333; font-weight: 600; margin-top: 3px; }
+        .tag { display: inline-block; background: #e1f0ff; color: #0056b3; padding: 4px 10px; border-radius: 12px; font-size: 12px; font-weight: bold; margin-right: 5px; margin-top: 5px; }
+        .tag-medical { background: #ffe5e5; color: #d9534f; }
+        
+        /* BOTÕES DE LIGAÇÃO RÁPIDA */
+        .btn-call { display: flex; align-items: center; justify-content: center; background: #28a745; color: white; text-decoration: none; padding: 15px; border-radius: 12px; font-weight: bold; font-size: 16px; margin-bottom: 12px; box-shadow: 0 4px 10px rgba(40,167,69,0.3); transition: 0.2s; }
+        .btn-call-secondary { background: #17a2b8; box-shadow: 0 4px 10px rgba(23,162,184,0.3); }
+        .btn-call:active { transform: scale(0.98); }
+        .icon { margin-right: 10px; font-size: 20px; }
+        .footer { text-align: center; padding: 15px; font-size: 11px; color: #adb5bd; border-top: 1px solid #eee; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <div class="header">
+        <h1>Cartão de Identificação KILA</h1>
+        <p>Sistema Inteligente de Assistência Infantil</p>
+    </div>
+
+    <div class="content">
+        <div class="alert-box">
+            <strong>Aviso ao Encontrador:</strong> Esta criança possui cuidados especiais. Por favor, mantenha a calma e entre em contato imediato com os responsáveis abaixo.
+        </div>
+
+        <!-- BOTÕES DE LIGAÇÃO DIRETA -->
+        <!-- O parâmetro tel: faz o celular abrir o discador nativo automaticamente! -->
+        <a href="tel:+5535998437620" class="btn-call">
+            <span class="icon">📞</span> LIGAR PARA A MÃE (URGENTE)
+        </a>
+        
+        <a href="tel:+553598476062" class="btn-call btn-call-secondary">
+            <span class="icon">📞</span> LIGAR PARA O PAI
+        </a>
+
+        <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
+
+        <!-- INFORMAÇÕES PESSOAIS -->
+        <div class="info-group">
+            <div class="info-label">Nome da Criança</div>
+            <div class="info-value">Pedro Henrique Silva</div>
+        </div>
+
+        <div class="info-group">
+            <div class="info-label">Condição de Saúde / Neurodivergência</div>
+            <div>
+                <span class="tag">TEA (Autismo - Nível 1)</span>
+                <span class="tag tag-medical">Diabético Tipo 1</span>
+            </div>
+        </div>
+
+        <div class="info-group">
+            <div class="info-label">Instruções de Abordagem / Sensibilidade</div>
+            <div class="info-value" style="font-weight: normal; font-size: 14px; color: #555;">
+                • Sensível a barulhos altos e toque repentino.<br>
+                • Fale de forma calma com frases curtas.<br>
+                • Possui medicação de emergência no bolso da mochila.
+            </div>
+        </div>
+
+        <div class="info-group">
+            <div class="info-label">Tipo Sanguíneo</div>
+            <div class="info-value">O Positivo (O+)</div>
+        </div>
+    </div>
+
+    <div class="footer">
+        Desenvolvido pelo Projeto KILA - Protótipo de Engenharia
+    </div>
+</div>
+
+</body>
+</html>
