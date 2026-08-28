@@ -11,8 +11,6 @@
             --purple-light: #ede9fe;
             --blue-primary: #2563eb;
             --blue-dark: #1d4ed8;
-            --red-sos: #dc2626;
-            --red-sos-dark: #b91c1c;
             --gradient-main: linear-gradient(135deg, #7c3aed 0%, #2563eb 100%);
             --text-main: #1e293b;
             --text-muted: #64748b;
@@ -79,6 +77,7 @@
             border-top: 1px solid rgba(124, 58, 237, 0.1);
             border-right: 1px solid rgba(124, 58, 237, 0.1);
             border-bottom: 1px solid rgba(124, 58, 237, 0.1);
+            line-height: 1.5;
         }
 
         .alert-box strong {
@@ -86,32 +85,6 @@
             display: block;
             margin-bottom: 4px;
             font-size: 0.92rem;
-        }
-
-        /* Botão SOS Principal */
-        .btn-sos {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--red-sos);
-            color: white;
-            text-decoration: none;
-            padding: 18px;
-            border-radius: 14px;
-            font-weight: 700;
-            font-size: 1.05rem;
-            margin-bottom: 15px;
-            box-shadow: 0 6px 20px rgba(220, 38, 38, 0.35);
-            transition: all 0.2s ease;
-            border: none;
-            width: 100%;
-            cursor: pointer;
-        }
-
-        .btn-sos:hover {
-            background: var(--red-sos-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(220, 38, 38, 0.45);
         }
 
         /* Botões de Ligação */
@@ -145,7 +118,7 @@
             background: var(--purple-dark);
         }
 
-        .btn-sos:active, .btn-call:active {
+        .btn-call:active {
             transform: scale(0.98);
         }
 
@@ -266,16 +239,11 @@
     </div>
 
     <div class="content">
-        <!-- Aviso Atualizado -->
+        <!-- Aviso ao Encontrador Atualizado orientando sobre o Botão Físico -->
         <div class="alert-box">
             <strong>Aviso ao Encontrador:</strong>
-            Esta criança possui cuidados especiais. Por favor, mantenha a calma e <strong>pressione o botão de SOS</strong> para enviar um SMS automático com a sua localização para os pais.
+            Caso esta criança esteja perdida, por favor, <strong>pressione o botão físico de SOS</strong> localizado no dispositivo para enviar um SMS imediato aos pais contendo a geolocalização exata. Se preferir, utilize os contatos abaixo.
         </div>
-
-        <!-- Botão SOS Implementado -->
-        <button type="button" class="btn-sos" onclick="enviarSOS()">
-            <span class="icon">🚨</span> ENVIAR SOS (SMS COM LOCALIZAÇÃO)
-        </button>
 
         <!-- Botões de Ligação Direta -->
         <a href="tel:+5535999999999" class="btn-call btn-call-secondary" onclick="mostrarToast('Discando para a Mãe...')">
@@ -352,37 +320,6 @@
             mostrarToast('Guia rápido exibido!');
         } else {
             box.style.display = 'none';
-        }
-    }
-
-    function enviarSOS() {
-        mostrarToast('Capturando sua localização...');
-        
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    const lat = position.coords.latitude;
-                    const lon = position.coords.longitude;
-                    const linkMaps = `https://maps.google.com/?q=${lat},${lon}`;
-                    const mensagemSMS = `SOS! Encontrei a criança. Minha localização atual é: ${linkMaps}`;
-                    
-                    const telefonePais = "+5535999999999"; // Número principal
-                    
-                    mostrarToast('Abrindo aplicativo de SMS...');
-                    setTimeout(() => {
-                        window.location.href = `sms:${telefonePais}?body=${encodeURIComponent(mensagemSMS)}`;
-                    }, 1000);
-                },
-                (error) => {
-                    mostrarToast('Erro ao obter localização. Tentando ligação...');
-                    setTimeout(() => {
-                        window.location.href = 'tel:+5535999999999';
-                    }, 1500);
-                },
-                { timeout: 10000, enableHighAccuracy: true }
-            );
-        } else {
-            mostrarToast('Geolocalização não suportada neste aparelho.');
         }
     }
 </script>
