@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -106,7 +107,7 @@
             font-size: 0.92rem;
         }
 
-        /* Buttons of Quick Call */
+        /* Botões de Ligação Direta */
         .btn-call {
             display: flex;
             align-items: center;
@@ -195,7 +196,7 @@
             border-color: rgba(37, 99, 235, 0.15);
         }
 
-        /* Interactive Elements Added */
+        /* Painel Interativo */
         .interactive-panel {
             background: #fdf4ff;
             border: 1px dashed #d8b4fe;
@@ -228,7 +229,7 @@
             opacity: 0.9;
         }
 
-        /* Toast feedback */
+        /* Notificação Toast */
         .toast {
             position: fixed;
             bottom: 25px;
@@ -275,7 +276,7 @@
             Esta criança possui cuidados especiais. Por favor, mantenha a calma e entre em contato imediato com os responsáveis abaixo.
         </div>
 
-        <!-- BOTÕES DE LIGAÇÃO DIRETA -->
+        <!-- Botões de Ligação Direta -->
         <a href="tel:+5535999999999" class="btn-call btn-call-secondary" onclick="triggerCallToast('Discando para a Mãe...')">
             <span class="icon">📞</span> LIGAR PARA A MÃE (URGENTE)
         </a>
@@ -284,7 +285,7 @@
             <span class="icon">📞</span> LIGAR PARA O PAI
         </a>
 
-        <!-- INTERACTIVE WIDGET -->
+        <!-- Widget Interativo -->
         <div class="interactive-panel">
             <p>Precisa de diretrizes adicionais de acalmamento?</p>
             <button class="btn-interactive" onclick="toggleGuidance()">Ver Guia Rápido de Apoio</button>
@@ -294,7 +295,7 @@
             <strong>Dica de Acolhimento:</strong> Ofereça um local silencioso, evite aglomerações ao redor e aguarde os responsáveis mantendo contato visual suave.
         </div>
 
-        <!-- INFORMAÇÕES PESSOAIS -->
+        <!-- Informações Pessoais -->
         <div class="info-group">
             <div class="info-label">Nome da Criança</div>
             <div class="info-value">Pedro Henrique Silva</div>
@@ -328,7 +329,7 @@
     </div>
 </div>
 
-<!-- Toast notification element -->
+<!-- Elemento de notificação Toast -->
 <div id="toast" class="toast">
     <span>✨</span> <span id="toastText">Ação realizada</span>
 </div>
