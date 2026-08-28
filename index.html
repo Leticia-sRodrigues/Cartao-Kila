@@ -12,6 +12,8 @@
             --blue-primary: #2563eb;
             --blue-dark: #1d4ed8;
             --blue-light: #dbeafe;
+            --red-primary: #dc2626;
+            --red-dark: #b91c1c;
             --gradient-main: linear-gradient(135deg, #7c3aed 0%, #2563eb 100%);
             --bg-body: #f3e8ff;
             --text-main: #1e293b;
@@ -107,6 +109,32 @@
             font-size: 0.92rem;
         }
 
+        /* Botão SOS de Emergência */
+        .btn-sos {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--red-primary);
+            color: white;
+            text-decoration: none;
+            padding: 16px;
+            border-radius: 14px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            margin-bottom: 16px;
+            box-shadow: 0 6px 15px rgba(220, 38, 38, 0.3);
+            transition: all 0.2s ease;
+            border: none;
+            width: 100%;
+            cursor: pointer;
+        }
+
+        .btn-sos:hover {
+            background: var(--red-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(220, 38, 38, 0.4);
+        }
+
         /* Botões de Ligação Direta */
         .btn-call {
             display: flex;
@@ -140,7 +168,7 @@
             box-shadow: 0 8px 20px rgba(124, 58, 237, 0.35);
         }
 
-        .btn-call:active {
+        .btn-call:active, .btn-sos:active {
             transform: scale(0.98);
         }
 
@@ -273,8 +301,13 @@
     <div class="content">
         <div class="alert-box">
             <strong>Aviso ao Encontrador:</strong>
-            Esta criança possui cuidados especiais. Por favor, mantenha a calma e entre em contato imediato com os responsáveis abaixo.
+            Esta criança possui cuidados especiais. Por favor, mantenha a calma e <strong>pressione o botão SOS abaixo</strong> para enviar um SMS imediato com a sua localização para os responsáveis.
         </div>
+
+        <!-- Botão SOS com Geolocalização e Envio de SMS -->
+        <button type="button" class="btn-sos" onclick="sendSOS()">
+            <span class="icon">🚨</span> ENVIAR SOS (LOCALIZAÇÃO VIA SMS)
+        </button>
 
         <!-- Botões de Ligação Direta -->
         <a href="tel:+5535999999999" class="btn-call btn-call-secondary" onclick="triggerCallToast('Discando para a Mãe...')">
@@ -351,6 +384,41 @@
             triggerCallToast('Guia rápido exibido com sucesso!');
         } else {
             box.style.display = 'none';
+        }
+    }
+
+    function sendSOS() {
+        triggerCallToast('Obtendo sua localização...');
+        
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const lat = position.coords.latitude;
+                    const lon = position.coords.longitude;
+                    const mapsLink = `https://maps.google.com/?q=${lat},${lon}`;
+                    const smsMessage = `SOS! Encontrei a criança. Estou nesta localização: ${mapsLink}`;
+                    
+                    // Número de emergência principal (Mãe, por exemplo)
+                    const phone = "+5535999999999";
+                    
+                    triggerCallToast('Redirecionando para o envio de SMS...');
+                    
+                    // Dispara o aplicativo de SMS nativo preenchendo o número e a mensagem com o link do Google Maps
+                    setTimeout(() => {
+                        window.location.href = `sms:${phone}?body=${encodeURIComponent(smsMessage)}`;
+                    }, 1000);
+                },
+                (error) => {
+                    // Caso o usuário negue a permissão de localização
+                    triggerCallToast('Não foi possível obter a localização. Ligando direto...');
+                    setTimeout(() => {
+                        window.location.href = 'tel:+5535999999999';
+                    }, 1500);
+                },
+                { timeout: 10000, enableHighAccuracy: true }
+            );
+        } else {
+            triggerCallToast('Geolocalização não suportada neste dispositivo.');
         }
     }
 </script>
